@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MultiAgentGraphState",
+  "type": "object",
+  "required": ["messages", "current_agent", "task_status"],
+  "properties": {
+    "messages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "current_agent": { "type": "string" },
+    "task_status": { "type": "string", "enum": ["in_progress", "done", "failed"] },
+    "delegation_chain": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "final_answer": { "type": "string" }
+  },
+  "additionalProperties": false
+}

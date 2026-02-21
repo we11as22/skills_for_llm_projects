@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskEnvelope",
+  "type": "object",
+  "required": ["task_id", "type", "attempt", "idempotency_key", "payload"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "type": { "type": "string" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "idempotency_key": { "type": "string" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CoreGraphState",
+  "type": "object",
+  "required": ["user_input", "messages", "done"],
+  "properties": {
+    "user_input": { "type": "string" },
+    "collected": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "messages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "answer": { "type": "string" },
+    "done": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

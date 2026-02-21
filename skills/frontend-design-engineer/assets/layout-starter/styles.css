@@ -1,0 +1,33 @@
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --text: #11203a;
+  --accent: #1f7a8c;
+  --space-4: 1rem;
+  --radius: 14px;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background: radial-gradient(circle at top right, #daf1f7, var(--bg));
+  color: var(--text);
+}
+
+.hero {
+  padding: 3rem 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: 0 10px 24px rgba(17, 32, 58, 0.1);
+}

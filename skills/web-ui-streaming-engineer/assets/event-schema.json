@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StreamingEvent",
+  "type": "object",
+  "required": ["event_id", "sequence", "task_id", "type", "timestamp", "payload"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "task_id": { "type": "string" },
+    "type": { "type": "string", "enum": ["progress", "log", "error", "done"] },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}

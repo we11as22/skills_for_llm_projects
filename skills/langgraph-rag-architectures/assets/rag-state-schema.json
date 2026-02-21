@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RAGGraphState",
+  "type": "object",
+  "required": ["query", "docs", "answer"],
+  "properties": {
+    "query": { "type": "string" },
+    "route": { "type": "string" },
+    "docs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "retrieval_score": { "type": "number" },
+    "answer": { "type": "string" },
+    "citations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

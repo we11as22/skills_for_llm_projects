@@ -1,0 +1,3 @@
+interface:
+  display_name: "LLM Async Structured Output"
+  short_description: "Help with LLM Async Structured Output tasks"

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WebAction",
+  "type": "object",
+  "required": ["action", "target", "reason"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["click", "type", "scroll", "open_url", "back", "extract"]
+    },
+    "target": { "type": "string" },
+    "value": { "type": "string" },
+    "reason": { "type": "string" },
+    "safety_level": { "type": "string", "enum": ["low", "medium", "high"] }
+  },
+  "additionalProperties": false
+}

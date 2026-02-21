@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LLMJudgeOutput",
+  "type": "object",
+  "required": ["overall_score", "final_verdict", "hard_fail", "criteria", "summary"],
+  "properties": {
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "final_verdict": {
+      "type": "string",
+      "enum": ["pass", "needs_revision", "fail"]
+    },
+    "hard_fail": { "type": "boolean" },
+    "summary": { "type": "string" },
+    "criteria": {
+      "type": "object",
+      "required": [
+        "task_success",
+        "factuality",
+        "instruction_following",
+        "safety",
+        "completeness",
+        "clarity"
+      ],
+      "properties": {
+        "task_success": { "$ref": "#/$defs/criterion" },
+        "factuality": { "$ref": "#/$defs/criterion" },
+        "instruction_following": { "$ref": "#/$defs/criterion" },
+        "safety": { "$ref": "#/$defs/criterion" },
+        "completeness": { "$ref": "#/$defs/criterion" },
+        "clarity": { "$ref": "#/$defs/criterion" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "criterion": {
+      "type": "object",
+      "required": ["score", "evidence", "issues"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence": { "type": "string" },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

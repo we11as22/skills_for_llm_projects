@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentEvaluationResult",
+  "type": "object",
+  "required": ["overall_score", "task_success", "criteria"],
+  "properties": {
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "task_success": { "type": "boolean" },
+    "criteria": {
+      "type": "object",
+      "required": ["factuality", "safety", "helpfulness", "format_compliance"],
+      "properties": {
+        "factuality": { "$ref": "#/$defs/criterion" },
+        "safety": { "$ref": "#/$defs/criterion" },
+        "helpfulness": { "$ref": "#/$defs/criterion" },
+        "format_compliance": { "$ref": "#/$defs/criterion" }
+      }
+    },
+    "final_verdict": { "type": "string", "enum": ["pass", "needs_revision", "fail"] }
+  },
+  "$defs": {
+    "criterion": {
+      "type": "object",
+      "required": ["score", "reason"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reason": { "type": "string" },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
