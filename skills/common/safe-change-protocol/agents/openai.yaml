@@ -1,0 +1,7 @@
+interface:
+  display_name: "Safe Change Protocol"
+  short_description: "Mandatory discipline for every code or config change: blast-radius analysis, change classification, behavioural change detection, variant proposals, and post-edit verification checklist."
+  brand_color: "#c0392b"
+
+policy:
+  allow_implicit_invocation: true

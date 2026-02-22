@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 MAX_SKILL_NAME_LENGTH = 64
+MAX_DESCRIPTION_LENGTH = 1024  # Roo/Kilo/Cursor docs
 
 
 def validate_skill(skill_path: Path) -> tuple[bool, str]:
@@ -48,6 +49,15 @@ def validate_skill(skill_path: Path) -> tuple[bool, str]:
         return False, "Name cannot start/end with hyphen or contain '--'"
     if len(name) > MAX_SKILL_NAME_LENGTH:
         return False, f"Name too long ({len(name)} > {MAX_SKILL_NAME_LENGTH})"
+
+    # Cursor/Roo/Kilo: name must match parent directory name
+    dir_name = skill_path.name
+    if name != dir_name:
+        return False, f"Name '{name}' must match directory name '{dir_name}'"
+
+    desc = description.strip()
+    if len(desc) > MAX_DESCRIPTION_LENGTH:
+        return False, f"Description too long ({len(desc)} > {MAX_DESCRIPTION_LENGTH})"
 
     return True, "Skill is valid!"
 

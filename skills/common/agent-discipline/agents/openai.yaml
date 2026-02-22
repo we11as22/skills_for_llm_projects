@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Discipline"
+  short_description: "Always-on guardrails: no silent assumptions, scope control, complete-code-only, honesty flags, stop-and-ask triggers, context checkpoints. The meta-skill that makes all other skills more reliable."
+  brand_color: "#2c3e50"
+
+policy:
+  allow_implicit_invocation: true

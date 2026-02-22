@@ -1,0 +1,7 @@
+interface:
+  display_name: "Doc Keeper"
+  short_description: "Keeps README, ARCHITECTURE.md and docs/changes/ alive and noise-free. Maintains project identity, design decisions, invariants and semantic change log. Always updates after meaningful changes."
+  brand_color: "#27ae60"
+
+policy:
+  allow_implicit_invocation: true

@@ -194,12 +194,28 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Cursor
-#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
-#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
-#  refer to https://docs.cursor.com/context/ignore-files
+# Cursor / Claude / IDE state (do not commit; only .cursor/rules and .claude/commands are repo content)
 .cursorignore
 .cursorindexingignore
+.cursor/projects/
+.cursor/terminals/
+.cursor/*.log
+.claude/settings.local.json
+.claude/
+.clinerules/
+.cursor/
+.windsurfrules
+# Skill bank: local config (paths, overrides) — do not commit
+bootstrap.config.local
+.test_skill_run/
+*.config.local
+
+# OS and editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
 
 # Marimo
 marimo/_static/

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Terminal Power User"
+  short_description: "Advanced shell patterns: log polling, disk analysis, parallel execution, process inspection. Always-on for any task involving the terminal."
+  brand_color: "#1a1a2e"
+
+policy:
+  allow_implicit_invocation: true
