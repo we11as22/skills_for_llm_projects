@@ -43,7 +43,166 @@ CLAUDE_PATH="/path/to/project"
 | Codex       | `~/.agents/skills/<name>/`   | `/proj/.agents/skills/<name>/`        |
 | Roo / Kilo / Open Code | `~/.roo/skills/` и т.д. | `/proj/.roo/skills/` и т.д.           |
 | Windsurf    | `~/.codeium/windsurf/memories/` | по WINDSURF_PATH                    |
-| Cline / Aider | правила в репо              | —                                      |
+| Cline / Aider | только скиллы в выбранных целях | —                                      |
+
+---
+
+## Примеры использования
+
+### Первый раз: всё по умолчанию
+
+После клона запускаете бутстрап без параметров — ставятся все категории (включая `common`) во все цели из `bootstrap.config`:
+
+```bash
+git clone <REPO> skills_for_llm_projects && cd skills_for_llm_projects
+./scripts/bootstrap_vibecoding.sh
+```
+
+В итоге скиллы появятся в `~/.claude/skills/`, `~/.cursor/skills/`, `~/.agents/skills/`, `~/.roo/skills/`, `~/.kilocode/skills/`, `~/.config/opencode/skills/` (и при необходимости в Windsurf/Cline/Aider).
+
+---
+
+### Только Cursor, все скиллы
+
+Нужны скиллы только в Cursor, остальные вайбкоды не трогать:
+
+```bash
+./scripts/bootstrap_vibecoding.sh --targets cursor
+```
+
+Или в конфиге: `TARGETS="cursor"` и затем `./scripts/bootstrap_vibecoding.sh`.
+
+---
+
+### Только LangGraph + common, только Claude и Codex
+
+Ставите только категорию `langgraph` (плюс обязательный `common`) и только в Claude и Codex:
+
+```bash
+./scripts/bootstrap_vibecoding.sh --categories langgraph --targets claude,codex
+```
+
+---
+
+### Только несколько скиллов по имени (без целой категории)
+
+Нужны, например, только React и Kubernetes, без остальных frontend/platform. В конфиге задаёте `SKILLS_EXTRA` (отдельные скиллы через пробел):
+
+В `bootstrap.config`:
+```bash
+CATEGORIES=""
+SKILLS_EXTRA="react-js-engineer kubernetes-platform-engineer"
+TARGETS="cursor claude"
+```
+
+Запуск:
+```bash
+./scripts/bootstrap_vibecoding.sh
+```
+
+Категория `common` всё равно подставится. Список установленных скиллов: скиллы из `SKILLS_EXTRA` плюс все из `common`.
+
+---
+
+### Установка в папку проекта (не в ~)
+
+Хотите, чтобы скиллы были только у конкретного проекта — например, в `/home/me/myapp`:
+
+В `bootstrap.config` или в `bootstrap.config.local`:
+```bash
+CURSOR_PATH="/home/me/myapp"
+CLAUDE_PATH="/home/me/myapp"
+TARGETS="cursor claude"
+```
+
+После запуска бутстрапа скиллы появятся в `/home/me/myapp/.cursor/skills/` и `/home/me/myapp/.claude/skills/`. В других проектах эти скиллы видны не будут.
+
+---
+
+### Копирование вместо симлинков
+
+На Windows или в CI симлинки могут быть нежелательны. Ставите скиллы копированием:
+
+```bash
+./scripts/bootstrap_vibecoding.sh --copy
+```
+
+Или только для части целей (например, только Cursor копией):
+```bash
+./scripts/bootstrap_vibecoding.sh --targets cursor --copy
+```
+
+---
+
+### Минимальный набор: только common + frontend
+
+Только «обязательные» скиллы и фронтенд:
+
+```bash
+./scripts/bootstrap_vibecoding.sh --categories frontend --targets cursor,claude
+```
+
+Категория `common` подставится сама.
+
+---
+
+### Повторный запуск: добавить цель или категорию
+
+Бутстрап можно вызывать многократно. Сначала поставили только в Cursor, потом решили добавить Roo и Kilo:
+
+```bash
+./scripts/bootstrap_vibecoding.sh --targets roo,kilocode
+```
+
+Или в конфиге поменяли `TARGETS="cursor roo kilocode"` и снова запустили `./scripts/bootstrap_vibecoding.sh`. Скиллы перезапишутся/обновятся в указанных целях.
+
+---
+
+### Локальные переопределения (не в git)
+
+Чтобы не менять общий `bootstrap.config`, создаёте рядом файл `bootstrap.config.local` (он в `.gitignore`):
+
+```bash
+# bootstrap.config.local
+CATEGORIES="langgraph llm"
+TARGETS="cursor"
+CURSOR_PATH="/home/me/work/secret-project"
+```
+
+Дальше просто:
+```bash
+./scripts/bootstrap_vibecoding.sh
+```
+
+Скрипт сначала читает `bootstrap.config`, потом `bootstrap.config.local` — локальные значения перекрывают общие.
+
+---
+
+### Проверить, что установилось
+
+- **Cursor:** Настройки → Rules → Agent Decides — в списке должны быть скиллы из `~/.cursor/skills/` (или из пути в `CURSOR_PATH`). В чате агента можно набрать `/` и искать по имени скилла.
+- **Claude Code:** В чате ввести `/` — появятся слэш-команды скиллов; или спросить: «What skills are available?»
+- **Терминал:** посмотреть список директорий скиллов:
+  ```bash
+  ls ~/.cursor/skills/
+  ls ~/.claude/skills/
+  ls ~/.agents/skills/
+  ```
+
+---
+
+### Валидация перед установкой
+
+Проверить, что все скиллы в репо валидны (frontmatter, имя папки, скрипты):
+
+```bash
+./scripts/validate_all_skills.sh
+```
+
+Один скилл:
+```bash
+python3 scripts/quick_validate_skill.py skills/frontend/react-js-engineer
+```
 
 ---
 
@@ -62,8 +221,7 @@ CLAUDE_PATH="/path/to/project"
 - **Codex:** скиллы в `~/.agents/skills/<name>/`; глобальный контекст в `~/.codex/instructions.md`.
 - **Roo / Kilo / Open Code:** скиллы в `~/.roo/skills/`, `~/.kilocode/skills/`, `~/.config/opencode/skills/`; подгрузка по описанию задачи.
 - **Windsurf:** в память копируется `skills_for_llm_projects.md` в `~/.codeium/windsurf/memories/`.
-- **Cline:** в репо есть `.clinerules/` (индекс скиллов и стандарты).
-- **Aider:** после бутстрапа создаётся `CONVENTIONS.md`; запуск: `aider --read CONVENTIONS.md …`.
+- **Cline / Aider:** скиллы доступны из установленных в ~ путей или из репо `skills/` при работе в нём.
 
 ---
 

@@ -274,7 +274,7 @@ if [[ $TARGET_CODEX -eq 1 ]]; then
     CODEX_INSTRUCTIONS="$HOME/.codex/instructions.md"
     mkdir -p "$HOME/.codex"
     if [[ ! -f "$CODEX_INSTRUCTIONS" ]]; then
-      printf '%s\n' "# Codex — skills from skill bank" "Skills: ~/.agents/skills/<name>/" "See project AGENTS.md for routing." > "$CODEX_INSTRUCTIONS"
+      printf '%s\n' "# Codex — skills from skill bank" "Skills: ~/.agents/skills/<name>/" "List: ls ~/.agents/skills/" > "$CODEX_INSTRUCTIONS"
       echo "  [new]  $CODEX_INSTRUCTIONS"
     fi
   fi
@@ -350,28 +350,11 @@ fi
 # ─── Cline / Aider ────────────────────────────────────────────────────────────
 if [[ $TARGET_CLINE -eq 1 ]]; then
   step_msg "Cline"
-  echo "  [ok]   Use this repo in Cline; .clinerules/ is in repo."
+  echo "  [ok]   Skills in ~/.cursor/skills/ (or open this repo in Cline)."
 fi
 if [[ $TARGET_AIDER -eq 1 ]]; then
   step_msg "Aider"
-  AIDER_CONVENTIONS="$REPO_ROOT/CONVENTIONS.md"
-  if [[ ! -f "$AIDER_CONVENTIONS" ]]; then
-    cat > "$AIDER_CONVENTIONS" <<'AIDER_EOF'
-# Aider Conventions — skill bank
-
-Skills in this repo: skills/<category>/<name>/. Read the relevant SKILL.md before implementing.
-
-## Routing
-- LangGraph: skills/langgraph/langgraph-tutorials-playbook/ (start)
-- Multi-agent: skills/langgraph/langgraph-multi-agent-systems/
-- RAG: skills/langgraph/langgraph-rag-architectures/
-- K8s: skills/platform/kubernetes-platform-engineer/
-- React: skills/frontend/react-js-engineer/
-See AGENTS.md for full table.
-AIDER_EOF
-    echo "  [new]  CONVENTIONS.md"
-  fi
-  echo "  [ok]   aider --read CONVENTIONS.md"
+  echo "  [ok]   Skills in ~/.agents/skills/ or repo skills/; use as needed."
 fi
 
 # ─── Summary ─────────────────────────────────────────────────────────────────
