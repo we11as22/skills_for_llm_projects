@@ -1,6 +1,6 @@
 ---
 name: doc-keeper
-description: Keeps project documentation alive, accurate, and noise-free. Maintains three living documents: README.md (project identity and quick orientation), ARCHITECTURE.md (key logic, decisions, invariants), and docs/changes/ (semantic change log — only what matters conceptually). Apply after every meaningful change to any of these. Always active on any project task.
+description: "Keeps project documentation alive, accurate, and noise-free. Maintains three living documents: README.md (project identity and quick orientation), ARCHITECTURE.md (key logic, decisions, invariants), and docs/changes/ (semantic change log — only what matters conceptually). Apply after every meaningful change to any of these. Always active on any project task."
 ---
 
 # Doc Keeper

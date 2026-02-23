@@ -1,6 +1,6 @@
 ---
 name: safe-change-protocol
-description: Mandatory discipline for making any code or config change. Apply before every edit: verify nothing is broken, surface side-effects, ask the user when logic changes, offer multiple implementation variants for non-trivial decisions. Always active — does not matter what stack or task.
+description: "Mandatory discipline for making any code or config change. Apply before every edit: verify nothing is broken, surface side-effects, ask the user when logic changes, offer multiple implementation variants for non-trivial decisions. Always active — does not matter what stack or task."
 disable-model-invocation: false
 ---
 
