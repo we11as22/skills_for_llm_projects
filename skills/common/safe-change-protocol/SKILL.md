@@ -43,7 +43,16 @@ Classify the change before making it. The class determines how much caution is n
 
 ### Rule: behavioural and interface changes always require explicit user confirmation.
 
-When you detect a behavioural or interface change:
+**Exception — user explicitly requested the change:**  
+When the **user's request itself** is to change logic, replace behaviour, refactor flow, or alter an interface (e.g. "replace the logic", "change how X works", "refactor this", "swap the implementation"), that is already explicit confirmation. In that case:
+1. **Do not refuse** to make the change. State clearly: old behaviour vs new behaviour, then **proceed with the implementation**.
+2. You may briefly summarise scope and blast radius; you do **not** need a second "are you sure?" or blocking confirmation — the user already asked for it.
+3. Still follow all other protocol steps: map blast radius, preserve invariants where possible, run verification after the change.
+
+**Unrequested changes:**  
+Do **not** introduce radical logic, architecture, or behaviour changes "out of nowhere" or without clear necessity. If a change would alter behaviour and the user did **not** ask for that change, then stop, describe, and ask first.
+
+When you detect a behavioural or interface change **that was not explicitly requested**:
 1. Stop before writing code.
 2. Describe **exactly** what the old behaviour is and what the new behaviour will be.
 3. Ask the user to confirm, or offer 2–3 implementation variants (see Phase 4).
@@ -118,16 +127,19 @@ If any check fails: **stop, revert, diagnose, then retry** — do not layer more
 - **Never** modify logic and style in the same edit. Separate them.
 - **Never** assume a refactor is "purely mechanical" without checking callers.
 - **Never** delete code without grepping for all usages first.
-- **Never** change a public API, schema, or contract without asking the user explicitly.
+- **Never** change a public API, schema, or contract without asking the user explicitly — **unless** the user explicitly asked you to change that API/schema/contract; then state the change and proceed.
 - **Never** run a migration, destructive query, or `DROP` without showing the exact statement first and asking for confirmation.
 - **Always** run tests before declaring a change done. "I think it works" is not verification.
 - **Always** ask when you are not 100% sure what the user wants. Clarifying questions are cheaper than wrong implementations.
+- **When the user explicitly asks to change logic or behaviour:** execute the change after stating old vs new behaviour; do not refuse or demand a second confirmation.
 
 ---
 
 ## Red Flags — Stop and Ask the User
 
-If any of these are true, stop and surface it before continuing:
+**If the user explicitly asked for the change** (e.g. "replace the logic", "change the behaviour"), the items below still apply for awareness — surface impact and blast radius — but do **not** use them as a reason to refuse. Proceed after stating old vs new behaviour.
+
+If any of these are true **and the change was not explicitly requested**, stop and surface it before continuing:
 
 - The change would alter a return type, response shape, or emitted event
 - The change removes or renames a public function/class/endpoint

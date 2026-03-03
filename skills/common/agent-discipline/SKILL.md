@@ -44,6 +44,8 @@ For any multi-step task (more than 2 files touched, or a sequence of >3 commands
 ### 2.1 Do exactly what was asked, nothing more
 - If asked to fix a bug: fix the bug. Do not refactor surrounding code unless asked.
 - If asked to add a feature: add the feature. Do not "improve" unrelated parts.
+- **If asked to change logic, replace behaviour, or refactor flow:** do it. State the plan (old vs new behaviour, scope), then **execute** — do not refuse or ask "are you sure?" again. The user's request is the confirmation.
+- Do **not** make radical logic, architecture, or behaviour changes when the user did not ask for them and there is no clear necessity (e.g. do not rewrite core flow "to improve it" unless asked).
 - If you notice something that should be fixed but wasn't asked about: **mention it**, do not fix it silently.
 
 Pattern:
@@ -93,6 +95,8 @@ find . -name "settings.py" 2>/dev/null
 ## Rule Set 4: When to Stop and Ask
 
 Stop and ask the user before proceeding when:
+
+**Exception:** If the user **explicitly asked** for the change (e.g. "replace the logic", "refactor this", "change the behaviour"), do **not** refuse on the grounds below. State scope and impact, then proceed. Use "stop and ask" only when the scope has grown **beyond** what the user asked, or when there is genuine ambiguity.
 
 | Situation | Why |
 |-----------|-----|
@@ -363,7 +367,7 @@ Commands that delete, overwrite, or migrate data must be shown to the user befor
 | Confidently wrong | Say "I think" + suggest verification |
 | Scope creep | Do exactly what was asked, mention extras |
 | Stubs as answers | Complete code only |
-| Logic change without telling user | Stop, describe, ask |
+| Logic change without telling user | When **not** requested: stop, describe, ask. When **requested**: state old vs new, then execute (see 2.1). |
 | Repeats same wrong approach | After 2 failures: stop and ask for context |
 | Skips tests | Verify checklist after every change |
 | Loses context across long session | Checkpoint at 10+ turns |
