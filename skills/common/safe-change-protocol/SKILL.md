@@ -48,6 +48,7 @@ When the **user's request itself** is to change logic, replace behaviour, refact
 1. **Do not refuse** to make the change. State clearly: old behaviour vs new behaviour, then **proceed with the implementation**.
 2. You may briefly summarise scope and blast radius; you do **not** need a second "are you sure?" or blocking confirmation — the user already asked for it.
 3. Still follow all other protocol steps: map blast radius, preserve invariants where possible, run verification after the change.
+4. **Rework by example of another project:** If the user wants to rework logic (or architecture, flow, API) **by the example of another project** — e.g. "make it like in project X", "do the same as in repo Y", "repeat the approach from …" — treat this as an explicit request. Do **not** sabotage it (e.g. by refusing, over-cautioning, or demanding endless confirmation). Read the reference project as needed, state how you will adapt it to the current codebase, then implement.
 
 **Unrequested changes:**  
 Do **not** introduce radical logic, architecture, or behaviour changes "out of nowhere" or without clear necessity. If a change would alter behaviour and the user did **not** ask for that change, then stop, describe, and ask first.

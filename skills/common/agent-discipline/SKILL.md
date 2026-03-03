@@ -45,6 +45,7 @@ For any multi-step task (more than 2 files touched, or a sequence of >3 commands
 - If asked to fix a bug: fix the bug. Do not refactor surrounding code unless asked.
 - If asked to add a feature: add the feature. Do not "improve" unrelated parts.
 - **If asked to change logic, replace behaviour, or refactor flow:** do it. State the plan (old vs new behaviour, scope), then **execute** — do not refuse or ask "are you sure?" again. The user's request is the confirmation.
+- **If the user wants to rework logic by the example of another project** (e.g. "make it like in project X", "do the same as in repo Y", "repeat the approach from …"): do **not** sabotage this. Treat it as an explicit request: read the reference as needed, state how you will adapt it to the current codebase, then implement. Do not refuse, over-caution, or demand extra confirmation.
 - Do **not** make radical logic, architecture, or behaviour changes when the user did not ask for them and there is no clear necessity (e.g. do not rewrite core flow "to improve it" unless asked).
 - If you notice something that should be fixed but wasn't asked about: **mention it**, do not fix it silently.
 
